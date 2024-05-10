@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 import { useMemo, useState } from "react"
 import { OrderItem } from "../types"
 import { MenuItemType } from "../types"
+=======
+import { useState } from "react"
+import { OrderItem } from "../types"
+>>>>>>> c6721cde3bd23bfc5409434b3246d34f4b9734a5
 
 export default function useOrder(){
     
     const [order, setOrder] = useState<OrderItem[]>([])
+<<<<<<< HEAD
 
     function addOrder(item :MenuItemType){
         const itemExist = order.findIndex(searchOrder => searchOrder.id === item.id)
@@ -28,6 +34,10 @@ export default function useOrder(){
         order,
         addOrder,
         priceTotal
+=======
+    
+    return{
+>>>>>>> c6721cde3bd23bfc5409434b3246d34f4b9734a5
 
     }
 
