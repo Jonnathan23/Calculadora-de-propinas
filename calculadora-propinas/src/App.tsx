@@ -10,7 +10,7 @@ function App() {
 
   const { data } = usePropinas()
 
-  const { order, addOrder, priceTotal, removeItem } = useOrder()
+  const { order, addOrder, subPriceTotal, removeItem } = useOrder()
 
   console.log(data)
   return (
@@ -41,7 +41,7 @@ function App() {
           <h2 className="font-black text-4xl">Consumo</h2>
           <OrderItems
             order={order}
-            priceTotal={priceTotal}
+            subPriceTotal={subPriceTotal}
             removeItem={removeItem}
           />
         </div>

@@ -3,12 +3,12 @@ import type { OrderItem } from "../types"
 
 type OrderItemsProps = {
     order: OrderItem[]
-    priceTotal: number
+    subPriceTotal: number
     removeItem: (id: OrderItem['id']) => void
     
 }
 
-export default function OrderItems({ order, priceTotal, removeItem }: OrderItemsProps) {
+export default function OrderItems({ order, subPriceTotal, removeItem }: OrderItemsProps) {
 
     return (
         <>
@@ -35,9 +35,21 @@ export default function OrderItems({ order, priceTotal, removeItem }: OrderItems
 
                 ))}
             </div>
-            <div>
-                <p>Precio:{priceTotal}</p>
-            </div>
+            <section>
+                <h5>Propina:</h5>
+                <ul>
+                    <li><input type="checkbox" name="" id="" />10%</li>
+                    <li><input type="checkbox" name="" id="" />20%</li>
+                    <li><input type="checkbox" name="" id="" />50%</li>
+                </ul>
+            </section>
+            
+            <section>
+                <h5 className="text-2xl font-black">Totales y Propina:</h5>
+                <p>Subtotal a pagar: {formatCurrency(subPriceTotal)}</p>
+                <p>Propina: </p>
+                <p>Total a Pagar</p>
+            </section>
 
         </>
     )

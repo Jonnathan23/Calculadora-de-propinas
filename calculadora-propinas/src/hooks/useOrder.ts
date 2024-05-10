@@ -27,14 +27,14 @@ export default function useOrder(){
 
     }
 
-    const priceTotal = useMemo(() => order.reduce((total, item) => total +  (item.price * item.quantity),0),[order] )
+    const subPriceTotal = useMemo(() => order.reduce((total, item) => total +  (item.price * item.quantity),0),[order] )
 
 
     
     return{
         order,
         addOrder,
-        priceTotal,
+        subPriceTotal,
         removeItem
 
     
