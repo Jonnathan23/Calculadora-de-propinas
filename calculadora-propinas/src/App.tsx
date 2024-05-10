@@ -10,7 +10,7 @@ function App() {
 
   const { data } = usePropinas()
 
-  const { order, addOrder, priceTotal } = useOrder()
+  const { order, addOrder, priceTotal, removeItem } = useOrder()
 
   console.log(data)
   return (
@@ -37,11 +37,12 @@ function App() {
 
         </div>
 
-        <div>
-          <h2>Consumo</h2>
+        <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
+          <h2 className="font-black text-4xl">Consumo</h2>
           <OrderItems
             order={order}
             priceTotal={priceTotal}
+            removeItem={removeItem}
           />
         </div>
       </main>

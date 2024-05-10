@@ -22,6 +22,11 @@ export default function useOrder(){
         
     }
 
+    function removeItem(id:OrderItem['id']){
+        setOrder(revItem => revItem.filter(item => item.id != id) )
+
+    }
+
     const priceTotal = useMemo(() => order.reduce((total, item) => total +  (item.price * item.quantity),0),[order] )
 
 
@@ -29,7 +34,8 @@ export default function useOrder(){
     return{
         order,
         addOrder,
-        priceTotal
+        priceTotal,
+        removeItem
 
     
     }

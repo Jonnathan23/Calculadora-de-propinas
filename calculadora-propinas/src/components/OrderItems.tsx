@@ -1,22 +1,38 @@
+import { formatCurrency } from "../helpers"
 import type { OrderItem } from "../types"
 
 type OrderItemsProps = {
     order: OrderItem[]
-    priceTotal:number
-    // item: OrderItem
+    priceTotal: number
+    removeItem: (id: OrderItem['id']) => void
+    
 }
 
-export default function OrderItems({ order, priceTotal  }: OrderItemsProps) {
+export default function OrderItems({ order, priceTotal, removeItem }: OrderItemsProps) {
 
     return (
         <>
-            <div>
+            <div className="space-y-3 ">
                 {order.map(item => (
-                    <>
-                        <p>{item.name}</p>
-                        <p>${item.price}</p>
-                        <p>{item.quantity}</p>
-                    </>
+
+                    <div 
+                    className="flex items-center justify-between border-t border-gray-200 p-5 last-of-type:border-b"
+                    key={item.id}
+                    >
+                        <div>
+                            <p>{item.name} - {formatCurrency(item.price)}</p>
+                            <p className="font-black">Cantidad: {item.quantity} - {formatCurrency(item.price * item.quantity)}</p>
+
+                        </div>
+                        <button
+                            className="bg-red-600 h-8 w-8 rounded-full text-white font-black"
+                            onClick={() => removeItem(item.id)}
+                        >
+                            X
+                        </button>
+                    </div>
+
+
                 ))}
             </div>
             <div>
