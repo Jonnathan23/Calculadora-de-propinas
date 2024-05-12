@@ -12,7 +12,7 @@ type OrderItemsProps = {
     total: number
     saveOrder: () => void
     tip: number
-    parent :string
+    parent: string
 
 }
 
@@ -67,15 +67,13 @@ export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount
             </section>
 
 
-            <div id={parent}>
-                <button
-                    className="bg-black w-full p-3 uppercase text-white mt-10 font-bold"
-                    disabled={total === 0}
-                    onClick={saveOrder}
-                >
-                    Guardar Orden
-                </button>
-            </div>
+            <button
+                className="bg-black w-full p-3 uppercase text-white mt-10 font-bold"
+                disabled={total === 0}
+                onClick={saveOrder}
+            >
+                Guardar Orden
+            </button>
 
 
 

@@ -55,6 +55,8 @@ function App() {
 
             <p className="text-center">La orden está vacia</p>
           }
+          <div id={parent}>
+          </div>
 
         </div>
 

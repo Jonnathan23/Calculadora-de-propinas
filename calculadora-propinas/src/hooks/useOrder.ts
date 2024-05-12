@@ -42,10 +42,11 @@ export default function useOrder() {
 
         setTimeout(() => {
             msg.remove()
-            setOrder([])
-            setTip(0)
+
 
         }, 2000)
+        setOrder([])
+        setTip(0)
 
 
         //save ? setSave(false) : setSave(true);
