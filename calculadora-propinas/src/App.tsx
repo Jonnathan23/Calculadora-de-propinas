@@ -47,8 +47,7 @@ function App() {
               setTip={setTip}
               total={total}
               saveOrder={saveOrder}
-              tip={tip}
-              parent={parent}
+              tip={tip}             
 
             />
             :

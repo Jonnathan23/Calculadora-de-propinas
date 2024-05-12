@@ -12,11 +12,11 @@ type OrderItemsProps = {
     total: number
     saveOrder: () => void
     tip: number
-    parent: string
+   
 
 }
 
-export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount, setTip, total, saveOrder, tip, parent }: OrderItemsProps) {
+export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount, setTip, total, saveOrder, tip  }: OrderItemsProps) {
 
     return (
         <>
