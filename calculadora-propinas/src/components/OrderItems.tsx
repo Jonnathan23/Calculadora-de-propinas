@@ -10,11 +10,13 @@ type OrderItemsProps = {
     tipAmount: number
     setTip: React.Dispatch<React.SetStateAction<number>>
     total: number
-    saveOrder: (parent : string) => void
+    saveOrder: () => void
+    tip: number
+    parent :string
 
 }
 
-export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount, setTip, total, saveOrder }: OrderItemsProps) {
+export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount, setTip, total, saveOrder, tip, parent }: OrderItemsProps) {
 
     return (
         <>
@@ -44,12 +46,13 @@ export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount
             <div>
                 <h3 className='font-black text-2xl'>Propina:</h3>
                 <form action="">
-                    {tipOptions.map(tip =>
-                        <div key={tip.id} className='flex gap-2'>
-                            <label htmlFor={tip.id}>{tip.label} </label>
+                    {tipOptions.map(tipOrder =>
+                        <div key={tipOrder.id} className='flex gap-2'>
+                            <label htmlFor={tipOrder.id}>{tipOrder.label} </label>
                             <input
-                                type="radio" name="tip" id={tip.id} value={tip.value}
+                                type="radio" name="tipOrder" id={tipOrder.id} value={tipOrder.value}
                                 onChange={e => setTip(+e.target.value)}
+                                checked={tipOrder.value === tip}
                             />
                         </div>
                     )}
@@ -62,16 +65,19 @@ export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount
                 <p>Propina: <span className="font-black">{formatCurrency(tipAmount)}</span></p>
                 <p>Total a Pagar: <span className="font-black">{formatCurrency(total)}</span> </p>
             </section>
-            <div id="saveOrder">
+
+
+            <div id={parent}>
                 <button
                     className="bg-black w-full p-3 uppercase text-white mt-10 font-bold"
                     disabled={total === 0}
-                    onClick={() => saveOrder('saveOrder')}
+                    onClick={saveOrder}
                 >
                     Guardar Orden
                 </button>
-                
             </div>
+
+
 
 
         </>

@@ -10,7 +10,8 @@ function App() {
 
   const { data } = usePropinas()
 
-  const { order, addOrder, subPriceTotal, removeItem, tipAmount, setTip, total, saveOrder } = useOrder()
+  const { order, addOrder, subPriceTotal, removeItem,
+    tipAmount, setTip, total, saveOrder, tip, parent } = useOrder()
 
   console.log(data)
   return (
@@ -37,16 +38,24 @@ function App() {
 
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           <h2 className="font-black text-4xl">Consumo</h2>
-          <OrderItems
-            order={order}
-            subPriceTotal={subPriceTotal}
-            removeItem={removeItem}
-            tipAmount={tipAmount}
-            setTip={setTip}
-            total={total}
-            saveOrder={saveOrder}
+          {order.length > 0 ?
+            <OrderItems
+              order={order}
+              subPriceTotal={subPriceTotal}
+              removeItem={removeItem}
+              tipAmount={tipAmount}
+              setTip={setTip}
+              total={total}
+              saveOrder={saveOrder}
+              tip={tip}
+              parent={parent}
 
-          />
+            />
+            :
+
+            <p className="text-center">La orden está vacia</p>
+          }
+
         </div>
 
       </main>
