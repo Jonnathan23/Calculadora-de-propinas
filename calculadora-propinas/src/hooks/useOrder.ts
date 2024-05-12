@@ -3,9 +3,11 @@ import { useState, useMemo } from "react"
 import { OrderItem } from "../types"
 
 
+
 export default function useOrder(){
     
     const [order, setOrder] = useState<OrderItem[]>([])
+    const [tip, setTip] = useState(0)
 
 
     function addOrder(item :MenuItemType){
@@ -27,7 +29,25 @@ export default function useOrder(){
 
     }
 
+    function saveOrder(parent : string){        
+        const msg = document.createElement('p')
+        const div = document.getElementById(parent)
+
+        msg.textContent = 'Se ha guardado su orden'
+        msg.classList.add('guardar')
+
+        div?.appendChild(msg)
+        
+        setTimeout(() => msg.remove(),3000)
+
+        setOrder([])
+        setTip(0)
+    }
+
     const subPriceTotal = useMemo(() => order.reduce((total, item) => total +  (item.price * item.quantity),0),[order] )
+
+    const tipAmount = useMemo(() => subPriceTotal * tip, [tip,order])
+    const total = useMemo(() => subPriceTotal + tipAmount, [tip,order])
 
 
     
@@ -35,9 +55,11 @@ export default function useOrder(){
         order,
         addOrder,
         subPriceTotal,
-        removeItem
-
-    
+        removeItem,
+        tipAmount,
+        setTip,
+        total,
+        saveOrder
     }
 
 }

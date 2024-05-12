@@ -1,16 +1,16 @@
 import MenuItems from "./components/MenuItem"
-
 import OrderItems from "./components/OrderItems"
 import useOrder from "./hooks/useOrder"
-//import { menuItems } from "./data/db"
 import { usePropinas } from "./hooks/usePropinas"
 
 
 function App() {
 
+
+
   const { data } = usePropinas()
 
-  const { order, addOrder, subPriceTotal, removeItem } = useOrder()
+  const { order, addOrder, subPriceTotal, removeItem, tipAmount, setTip, total, saveOrder } = useOrder()
 
   console.log(data)
   return (
@@ -27,9 +27,7 @@ function App() {
               <MenuItems
                 key={item.id}
                 item={item}
-
                 addOrder={addOrder}
-
 
               />
             )}
@@ -43,8 +41,14 @@ function App() {
             order={order}
             subPriceTotal={subPriceTotal}
             removeItem={removeItem}
+            tipAmount={tipAmount}
+            setTip={setTip}
+            total={total}
+            saveOrder={saveOrder}
+
           />
         </div>
+
       </main>
 
 
