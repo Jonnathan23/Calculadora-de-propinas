@@ -1,27 +1,24 @@
 import { formatCurrency } from "../helpers"
-import type { OrderItem } from "../types"
 import { tipOptions } from "../data/db"
+import { Dispatch, useMemo } from "react"
+import { OrderActions, OrderState } from "../reducers/order-reducers"
 
 
 type OrderItemsProps = {
-    order: OrderItem[]
-    subPriceTotal: number
-    removeItem: (id: OrderItem['id']) => void
-    tipAmount: number
-    setTip: React.Dispatch<React.SetStateAction<number>>
-    total: number
-    saveOrder: () => void
-    tip: number
-   
-
+    state: OrderState
+    dispatch: Dispatch<OrderActions>
 }
 
-export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount, setTip, total, saveOrder, tip  }: OrderItemsProps) {
+export default function OrderItems({ state, dispatch }: OrderItemsProps) {
+
+    const subPriceTotal = useMemo(() => state.orders.reduce((total, item) => total + (item.price * item.quantity), 0), [state.orders])
+    const tipAmount = useMemo(() => subPriceTotal * state.tip, [state.tip, state.orders])
+    const total = useMemo(() => subPriceTotal + tipAmount, [state.tip, state.orders])
 
     return (
         <>
             <div className="space-y-3 ">
-                {order.map(item => (
+                {state.orders.map(item => (
 
                     <div
                         className="flex items-center justify-between border-t border-gray-200 p-5 last-of-type:border-b"
@@ -34,7 +31,7 @@ export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount
                         </div>
                         <button
                             className="bg-red-600 h-8 w-8 rounded-full text-white font-black"
-                            onClick={() => removeItem(item.id)}
+                            onClick={() => dispatch({ type: 'remove-item', payload: { id: item.id } })}
                         >
                             X
                         </button>
@@ -51,8 +48,8 @@ export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount
                             <label htmlFor={tipOrder.id}>{tipOrder.label} </label>
                             <input
                                 type="radio" name="tipOrder" id={tipOrder.id} value={tipOrder.value}
-                                onChange={e => setTip(+e.target.value)}
-                                checked={tipOrder.value === tip}
+                                onChange={e => dispatch({ type: 'set-tip', payload: { tip: +e.target.value } })}
+                                checked={tipOrder.value === state.tip}
                             />
                         </div>
                     )}
@@ -70,14 +67,10 @@ export default function OrderItems({ order, subPriceTotal, removeItem, tipAmount
             <button
                 className="bg-black w-full p-3 uppercase text-white mt-10 font-bold"
                 disabled={total === 0}
-                onClick={saveOrder}
+                onClick={() => dispatch({ type: 'save-order' })}
             >
                 Guardar Orden
             </button>
-
-
-
-
         </>
     )
 

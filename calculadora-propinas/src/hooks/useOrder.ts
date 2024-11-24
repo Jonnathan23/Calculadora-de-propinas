@@ -42,8 +42,6 @@ export default function useOrder() {
 
         setTimeout(() => {
             msg.remove()
-
-
         }, 2000)
         setOrder([])
         setTip(0)
