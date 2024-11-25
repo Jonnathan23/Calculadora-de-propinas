@@ -1,19 +1,13 @@
+import { useReducer } from "react"
 import MenuItems from "./components/MenuItem"
 import OrderItems from "./components/OrderItems"
-import useOrder from "./hooks/useOrder"
-import { usePropinas } from "./hooks/usePropinas"
+import { initialState, orderReducer } from "./reducers/order-reducers"
 
 
 function App() {
 
+  const [state, dispatch] = useReducer(orderReducer, initialState)
 
-
-  const { data } = usePropinas()
-
-  const { order, addOrder, subPriceTotal, removeItem,
-    tipAmount, setTip, total, saveOrder, tip, parent } = useOrder()
-
-  console.log(data)
   return (
     <>
       <header className="bg-teal-400 py-5">
@@ -24,12 +18,11 @@ function App() {
         <div className="p-5">
           <h2 className="text-4xl font-black">Menu</h2>
           <div className="space-y-3 mt-10">
-            {data.map(item =>
+            {state.data.map(item =>
               <MenuItems
                 key={item.id}
                 item={item}
-                addOrder={addOrder}
-
+                dispatch={dispatch}
               />
             )}
           </div>
@@ -38,24 +31,15 @@ function App() {
 
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           <h2 className="font-black text-4xl">Consumo</h2>
-          {order.length > 0 ?
+          {state.orders.length > 0 ?
             <OrderItems
-              order={order}
-              subPriceTotal={subPriceTotal}
-              removeItem={removeItem}
-              tipAmount={tipAmount}
-              setTip={setTip}
-              total={total}
-              saveOrder={saveOrder}
-              tip={tip}             
-
+              dispatch={dispatch}
+              state={state}
             />
             :
-
             <p className="text-center">La orden está vacia</p>
           }
-          <div id={parent}>
-          </div>
+          <div id={state.divId}></div>
 
         </div>
 
